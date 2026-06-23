@@ -3,7 +3,7 @@ import { Check, Clock3, LogOut, RefreshCw, ShieldCheck, X } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase, type Profile } from '../lib/supabase';
 
-const adminEmail = import.meta.env.VITE_ADMIN_EMAIL || 'contact@webfor59.com';
+const adminEmail = import.meta.env.VITE_ADMIN_EMAIL || 'contact@digitalBizconnect.com';
 
 export default function AdminPage() {
   const { session, loading, signOut } = useAuth();
@@ -84,7 +84,7 @@ export default function AdminPage() {
         <div className="w-full max-w-md bg-white rounded-2xl p-8 text-center">
           <ShieldCheck className="w-12 h-12 text-orange-600 mx-auto mb-4" />
           <h1 className="text-xl font-bold text-gray-900 mb-2">Admin Access Required</h1>
-          <p className="text-sm text-gray-600 mb-5">Sign in with the WebFor59 admin account to manage requests.</p>
+          <p className="text-sm text-gray-600 mb-5">Sign in with the digitalBizconnect.com admin account to manage requests.</p>
           <button onClick={signOut} className="inline-flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 text-white rounded-lg px-5 py-3 text-sm font-semibold">
             <LogOut className="w-4 h-4" />
             Sign Out
@@ -101,7 +101,7 @@ export default function AdminPage() {
       <header className="bg-green-950 text-white px-5 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-orange-300">WebFor59</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-orange-300">digitalBizconnect.com</p>
             <h1 className="text-xl font-bold">DBC Book Account Approvals</h1>
           </div>
           <button onClick={signOut} className="inline-flex items-center gap-2 text-sm font-semibold text-white/75 hover:text-white">

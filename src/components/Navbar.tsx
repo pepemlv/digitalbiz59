@@ -46,9 +46,9 @@ export default function Navbar() {
             className="flex items-center gap-2.5 group"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           >
-            <img src="/logo.png" alt="WebFor59" className="w-12 h-12 object-contain group-hover:scale-105 transition-transform" />
+            <img src="/logo.png" alt="digitalBizconnect.com" className="w-12 h-12 object-contain group-hover:scale-105 transition-transform" />
             <span className="font-display font-bold text-white text-lg tracking-tight">
-              WebFor<span className="text-orange-300">59</span>
+              digitalBizconnect.com
             </span>
           </a>
 

@@ -15,6 +15,20 @@ import {
 const superAdminUsername = 'superadmin';
 const superAdminPassword = 'login123';
 const superAdminSessionKey = 'dbc-superadmin-session';
+const webFor59Products = [
+  {
+    id: 'webfor59-launch',
+    name: 'Website Launch',
+    desc: 'Main Launch Today checkout price',
+    defaultPrice: 59.99,
+  },
+  {
+    id: 'webfor59-existing-domain',
+    name: 'Use Existing Domain',
+    desc: 'Existing domain setup checkout price',
+    defaultPrice: 49.99,
+  },
+];
 
 export default function SuperAdmin() {
   const [signedIn, setSignedIn] = useState(() => sessionStorage.getItem(superAdminSessionKey) === 'true');
@@ -26,7 +40,10 @@ export default function SuperAdmin() {
     []
   );
   const [prices, setPrices] = useState<Record<string, string>>(() =>
-    Object.fromEntries(templates.map((template) => [template.id, String(getCachedTemplatePrice(template.id))]))
+    Object.fromEntries([
+      ...webFor59Products.map((product) => [product.id, String(product.defaultPrice)]),
+      ...templates.map((template) => [template.id, String(getCachedTemplatePrice(template.id))]),
+    ])
   );
   const [savedId, setSavedId] = useState('');
   const [savingId, setSavingId] = useState('');
@@ -58,12 +75,16 @@ export default function SuperAdmin() {
     return subscribeToTemplateSettings(
       (firestoreSettings) => {
         setPrices(
-          Object.fromEntries(
-            templates.map((template) => [
+          Object.fromEntries([
+            ...webFor59Products.map((product) => [
+              product.id,
+              String(firestoreSettings[product.id]?.price ?? product.defaultPrice),
+            ]),
+            ...templates.map((template) => [
               template.id,
               String(firestoreSettings[template.id]?.price ?? defaultTemplatePrice),
             ]),
-          ),
+          ]),
         );
         setAvailability(
           Object.fromEntries(
@@ -242,6 +263,57 @@ export default function SuperAdmin() {
           {isLoading && <p className="mt-3 text-sm font-semibold text-orange-200">Loading Firestore prices...</p>}
           {errorMessage && <p className="mt-3 text-sm font-semibold text-red-300">Firestore error: {errorMessage}</p>}
         </div>
+
+        <section className="mb-8 rounded-2xl border border-orange-500/20 bg-orange-500/10 p-5">
+          <div className="mb-5">
+            <h2 className="font-display text-2xl font-bold text-white">digitalBizconnect.com Checkout Prices</h2>
+            <p className="mt-1 text-sm text-white/55">
+              Change the main website launch price and the existing domain setup price.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {webFor59Products.map((product) => (
+              <div key={product.id} className="rounded-2xl border border-white/10 bg-slate-950/45 p-4">
+                <div className="mb-4">
+                  <span className="inline-flex rounded-full bg-orange-500/15 px-2.5 py-1 text-xs font-bold text-orange-200 ring-1 ring-orange-500/20">
+                    digitalBizconnect.com
+                  </span>
+                  <h3 className="mt-3 font-display text-lg font-bold">{product.name}</h3>
+                  <p className="text-sm text-white/45">{product.desc}</p>
+                  <p className="mt-1 text-xs text-white/35">{product.id}</p>
+                </div>
+
+                <label className="block text-xs font-semibold uppercase tracking-wider text-white/45 mb-2">
+                  Checkout Price
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="number"
+                    min="1"
+                    step="0.01"
+                    value={prices[product.id] ?? ''}
+                    onChange={(event) => setPrices((current) => ({ ...current, [product.id]: event.target.value }))}
+                    className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-orange-500"
+                  />
+                  <button
+                    onClick={() => savePrice(product.id)}
+                    disabled={savingId === product.id}
+                    className="inline-flex items-center gap-2 rounded-xl bg-orange-600 px-4 py-3 text-sm font-bold text-white hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    <Save className="h-4 w-4" />
+                    {savingId === product.id ? 'Saving' : 'Save'}
+                  </button>
+                </div>
+                {savedId === product.id && (
+                  <p className="mt-3 text-sm font-semibold text-emerald-300">
+                    Saved. Checkout now uses {formatTemplatePrice(Number(prices[product.id]))}.
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
 
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
           {templates.map((template) => (

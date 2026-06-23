@@ -59,7 +59,7 @@ export default function Hero() {
           <div className="order-2 min-[900px]:order-1">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-4 py-2 mb-7">
               <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
-              <span className="text-sm text-white/75 font-medium">WEBFOR59.COM - Websites for Small Businesses</span>
+              <span className="text-sm text-white/75 font-medium">digitalBizconnect.com - Websites for Small Businesses</span>
             </div>
 
             <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.4rem] text-white leading-[1.08] mb-6 tracking-tight drop-shadow-[0_3px_18px_rgba(0,0,0,0.55)]">

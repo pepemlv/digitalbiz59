@@ -8,6 +8,6 @@ services:
     startCommand: npm start
     envVars:
       - key: FRONTEND_ORIGINS
-        value: https://webfor59.com,https://www.webfor59.com,https://digitalbizconnect.com,https://www.digitalbizconnect.com
+        value: https://digitalBizconnect.com,https://www.digitalBizconnect.com,https://digitalbizconnect.com,https://www.digitalbizconnect.com
       - key: STRIPE_SECRET_KEY
         sync: false

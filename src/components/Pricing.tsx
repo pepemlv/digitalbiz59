@@ -3,15 +3,26 @@ import type { FormEvent } from 'react';
 import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { CheckCircle, ArrowRight, Star, CreditCard, ShoppingCart, X } from 'lucide-react';
-import { formatTemplatePrice, saveWebsitePayment } from '../lib/templatePricing';
+import { formatTemplatePrice, saveWebsitePayment, subscribeToTemplateSettings } from '../lib/templatePricing';
 
-const checkoutProducts = {
+interface CheckoutProductBase {
+  planName: string;
+  templateId: string;
+  title: string;
+  summaryTitle: string;
+  defaultPrice: number;
+  description: string;
+}
+
+type CheckoutProduct = CheckoutProductBase & { price: number };
+
+const checkoutProductDefaults: Record<'launch' | 'existingDomain', CheckoutProductBase> = {
   launch: {
     planName: 'Website Launch',
     templateId: 'webfor59-launch',
     title: 'Launch Website Today',
     summaryTitle: 'Website launch',
-    price: 59.99,
+    defaultPrice: 59.99,
     description: 'Includes mobile-friendly website, contact and quote request form, professional email setup support, and Google-friendly structure.',
   },
   existingDomain: {
@@ -19,20 +30,20 @@ const checkoutProducts = {
     templateId: 'webfor59-existing-domain',
     title: 'Use Your Existing Domain',
     summaryTitle: 'Existing domain setup',
-    price: 49.99,
-    description: 'Includes DNS setup assistance and connecting your current domain to your new WebFor59 website.',
+    defaultPrice: 49.99,
+    description: 'Includes DNS setup assistance and connecting your current domain to your new digitalBizconnect.com website.',
   },
 } as const;
 
-type CheckoutProduct = typeof checkoutProducts[keyof typeof checkoutProducts];
 const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '';
 const stripePromise = stripePublishableKey ? loadStripe(stripePublishableKey) : null;
 
-const plans = [
+function buildPlans(products: { launch: CheckoutProduct; existingDomain: CheckoutProduct }) {
+  return [
   {
     name: 'Website Launch',
     tagline: 'Get online today',
-    price: '$59.99',
+    price: formatTemplatePrice(products.launch.price),
     suffix: 'one time',
     highlight: true,
     badge: 'Best Value',
@@ -51,7 +62,7 @@ const plans = [
   {
     name: 'Use Existing Domain',
     tagline: 'Do you want to use your existing domain?',
-    price: '$49.99',
+    price: formatTemplatePrice(products.existingDomain.price),
     suffix: 'one time',
     highlight: false,
     features: [
@@ -80,7 +91,8 @@ const plans = [
     ],
     cta: 'Reserve My Website',
   },
-];
+  ];
+}
 
 const perfectFor = [
   'Cleaning Services',
@@ -103,7 +115,7 @@ const faqs = [
   { question: 'What if I am not satisfied?', answer: 'We offer a 14-day money-back guarantee.' },
 ];
 
-function WebFor59CheckoutForm({
+function DigitalBizconnectCheckoutForm({
   product,
   onPaid,
 }: {
@@ -185,7 +197,7 @@ function WebFor59CheckoutForm({
       if (paymentIntent?.status === 'succeeded') {
         await saveWebsitePayment({
           templateId: product.templateId,
-          businessName: customerInfo.businessName || `WebFor59 ${product.summaryTitle}`,
+          businessName: customerInfo.businessName || `digitalBizconnect.com ${product.summaryTitle}`,
           websiteDomain: customerInfo.domain,
           customerName: customerInfo.name,
           customerEmail: customerInfo.email,
@@ -273,7 +285,7 @@ function WebFor59CheckoutForm({
   );
 }
 
-function WebFor59CheckoutModal({
+function DigitalBizconnectCheckoutModal({
   product,
   onClose,
 }: {
@@ -289,7 +301,7 @@ function WebFor59CheckoutModal({
         <div className="w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl">
           <div className="flex items-center justify-between gap-4 border-b border-slate-100 px-6 py-4">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-orange-600">WebFor59 Checkout</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-orange-600">digitalBizconnect.com Checkout</p>
               <h2 className="font-display text-2xl font-bold text-slate-950">{product.title}</h2>
             </div>
             <button onClick={onClose} className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200">
@@ -304,7 +316,7 @@ function WebFor59CheckoutModal({
               </div>
               <h3 className="font-display text-2xl font-bold text-slate-950">Payment received</h3>
               <p className="mx-auto mt-3 max-w-md text-slate-600">
-                Your WebFor59 payment is complete. We will contact you to collect your business details and begin the setup.
+                Your digitalBizconnect.com payment is complete. We will contact you to collect your business details and begin the setup.
               </p>
               {paymentIntentId && <p className="mt-3 text-xs font-semibold text-slate-400">Payment ID: {paymentIntentId}</p>}
               <button onClick={onClose} className="mt-7 rounded-xl bg-orange-600 px-6 py-3 font-semibold text-white hover:bg-orange-500">
@@ -315,7 +327,7 @@ function WebFor59CheckoutModal({
             <div className="grid lg:grid-cols-[1fr_260px]">
               {stripePromise ? (
                 <Elements stripe={stripePromise}>
-                  <WebFor59CheckoutForm
+                  <DigitalBizconnectCheckoutForm
                     product={product}
                     onPaid={(id) => {
                       setPaymentIntentId(id);
@@ -344,7 +356,7 @@ function WebFor59CheckoutModal({
                   </div>
                   <div className="mt-5 space-y-3 text-sm">
                     <div className="flex justify-between gap-3">
-                      <span className="text-slate-500">WebFor59 service</span>
+                      <span className="text-slate-500">digitalBizconnect.com service</span>
                       <span className="font-semibold text-slate-900">{formatTemplatePrice(product.price)}</span>
                     </div>
                     <div className="flex justify-between gap-3">
@@ -371,6 +383,15 @@ function WebFor59CheckoutModal({
 
 export default function Pricing() {
   const [checkoutProduct, setCheckoutProduct] = useState<CheckoutProduct | null>(null);
+  const [productPrices, setProductPrices] = useState({
+    launch: checkoutProductDefaults.launch.defaultPrice,
+    existingDomain: checkoutProductDefaults.existingDomain.defaultPrice,
+  });
+  const checkoutProducts = {
+    launch: { ...checkoutProductDefaults.launch, price: productPrices.launch },
+    existingDomain: { ...checkoutProductDefaults.existingDomain, price: productPrices.existingDomain },
+  };
+  const plans = buildPlans(checkoutProducts);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -392,6 +413,15 @@ export default function Pricing() {
 
     window.addEventListener('webfor59:open-checkout', openCheckout);
     return () => window.removeEventListener('webfor59:open-checkout', openCheckout);
+  }, [checkoutProducts.launch]);
+
+  useEffect(() => {
+    return subscribeToTemplateSettings((settings) => {
+      setProductPrices({
+        launch: settings[checkoutProductDefaults.launch.templateId]?.price ?? checkoutProductDefaults.launch.defaultPrice,
+        existingDomain: settings[checkoutProductDefaults.existingDomain.templateId]?.price ?? checkoutProductDefaults.existingDomain.defaultPrice,
+      });
+    });
   }, []);
 
   const scrollTo = (href: string) => {
@@ -523,7 +553,7 @@ export default function Pricing() {
         </div>
       </div>
       {checkoutProduct && (
-        <WebFor59CheckoutModal
+        <DigitalBizconnectCheckoutModal
           product={checkoutProduct}
           onClose={() => setCheckoutProduct(null)}
         />

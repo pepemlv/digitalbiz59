@@ -81,9 +81,9 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
           <div className="col-span-2 lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
-              <img src="/logo.png" alt="WebFor59" className="w-12 h-12 object-contain" />
+              <img src="/logo.png" alt="digitalBizconnect.com" className="w-12 h-12 object-contain" />
               <span className="font-display font-bold text-white text-lg tracking-tight">
-                WebFor<span className="text-orange-300">59</span>
+                digitalBizconnect.com
               </span>
             </div>
             <p className="text-sm text-white/60 leading-relaxed mb-5 max-w-xs">
@@ -96,7 +96,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-3.5 h-3.5 text-orange-400 flex-shrink-0" />
-                <span>contact@webfor59.com</span>
+                <span>contact@digitalBizconnect.com</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <MapPin className="w-3.5 h-3.5 text-orange-400 flex-shrink-0" />
@@ -126,7 +126,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-white/6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/40">
-            © {new Date().getFullYear()} WebFor59. All rights reserved.
+            © {new Date().getFullYear()} digitalBizconnect.com. All rights reserved.
           </p>
           <div className="flex items-center gap-2">
             {socials.map(({ icon: Icon, label }) => (

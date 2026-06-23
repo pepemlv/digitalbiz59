@@ -17,7 +17,7 @@ const services = [
 
 const contactInfo = [
   { icon: Phone, label: 'Phone', value: '(704) 281-0980' },
-  { icon: Mail, label: 'Email', value: 'contact@webfor59.com' },
+  { icon: Mail, label: 'Email', value: 'contact@digitalBizconnect.com' },
   { icon: MapPin, label: 'Location', value: 'Serving businesses nationwide' },
   { icon: Clock, label: 'Website Launch', value: 'Most websites can launch within 24 hours' },
 ];
@@ -257,7 +257,7 @@ export default function Contact() {
                 </div>
                 <h3 className="font-display font-bold text-2xl text-white mb-2">Message Sent!</h3>
                 <p className="text-white/65 mb-7 max-w-sm">
-                  We'll review your information and follow up with the next steps for your WebFor59 website.
+                  We'll review your information and follow up with the next steps for your digitalBizconnect.com website.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}

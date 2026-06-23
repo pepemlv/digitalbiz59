@@ -5,7 +5,7 @@ const testimonials = [
   {
     name: 'Maria Garcia',
     role: 'Owner, La Bella Cucina',
-    text: 'DigitalBizConnect completely transformed our restaurant. We went from barely surviving to having a 3-week waitlist. The online ordering system alone pays for their fees 10x over every month.',
+    text: 'digitalBizconnect.com completely transformed our restaurant. We went from barely surviving to having a 3-week waitlist. The online ordering system alone pays for their fees 10x over every month.',
     rating: 5,
     img: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=100&h=100&fit=crop&crop=face',
     industry: 'Restaurant',

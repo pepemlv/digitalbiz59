@@ -22,7 +22,7 @@ export default function DemoCTAFooter({ config, onDemoInquiry }: Props) {
           style={{ backgroundColor: `${config.accentHex}20`, border: `1px solid ${config.accentHex}40`, color: config.accentHex }}
         >
           <Zap className="w-3.5 h-3.5" />
-          Powered by WebFor59
+          Powered by digitalBizconnect.com
         </div>
 
         <h2 className="font-display font-bold text-3xl lg:text-4xl text-white mb-4">
@@ -30,7 +30,7 @@ export default function DemoCTAFooter({ config, onDemoInquiry }: Props) {
         </h2>
         <p className="text-slate-400 mb-8 text-lg">
           After checking Google, we noticed your company does not have a professional website yet.
-          If you like this demo, WebFor59 can customize it with your business details and help
+          If you like this demo, digitalBizconnect.com can customize it with your business details and help
           launch your website for only $59.99. Custom domains start at $9.99 per year.
         </p>
 

@@ -35,7 +35,7 @@ export default function BusinessPlatform() {
             Get Found. Get Customers. Grow Your Business.
           </h2>
           <p className="text-lg text-white/75 leading-relaxed">
-            WebFor59 helps small local businesses launch a professional website for only $59.99,
+            digitalBizconnect.com helps small local businesses launch a professional website for only $59.99,
             with no monthly website fee, no contracts, and a 14-day money-back guarantee.
           </p>
         </div>

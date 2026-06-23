@@ -19,7 +19,7 @@ export default function IndustryPage({ industryId, onBack }: Props) {
 
   useEffect(() => {
     if (config) document.title = `${config.businessName} - Website Demo`;
-    return () => { document.title = 'WebFor59'; };
+    return () => { document.title = 'digitalBizconnect.com'; };
   }, [config]);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function IndustryPage({ industryId, onBack }: Props) {
       action,
       businessName: config.businessName,
       industry: config.industry,
-      message: 'We Built This Website Demo for Your Company\n\nAfter checking Google, we noticed your company does not have a professional website yet. If you like this demo, WebFor59 can customize it with your business details and help launch your website for only $59.99. Custom domains start at $9.99 per year.\n\nLaunch today - Reserve and pay later - 14-day money-back guarantee',
+      message: 'We Built This Website Demo for Your Company\n\nAfter checking Google, we noticed your company does not have a professional website yet. If you like this demo, digitalBizconnect.com can customize it with your business details and help launch your website for only $59.99. Custom domains start at $9.99 per year.\n\nLaunch today - Reserve and pay later - 14-day money-back guarantee',
     }));
     onBack();
     setTimeout(() => {
@@ -61,7 +61,7 @@ export default function IndustryPage({ industryId, onBack }: Props) {
               <div className="w-8 h-8 rounded-lg bg-white/8 hover:bg-white/14 flex items-center justify-center transition-colors">
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
               </div>
-              <span className="text-sm font-medium hidden sm:inline">Back to WebFor59</span>
+              <span className="text-sm font-medium hidden sm:inline">Back to digitalBizconnect.com</span>
             </button>
 
             <div className="flex items-center gap-2.5">

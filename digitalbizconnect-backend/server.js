@@ -13,8 +13,8 @@ const allowedOrigins = [
   'http://localhost:5174',
   'https://digitalbizconnect.com',
   'https://www.digitalbizconnect.com',
-  'https://webfor59.com',
-  'https://www.webfor59.com',
+  'https://digitalBizconnect.com',
+  'https://www.digitalBizconnect.com',
   ...(process.env.FRONTEND_ORIGINS || '')
     .split(',')
     .map((origin) => origin.trim())
@@ -49,7 +49,7 @@ app.use(express.json());
 app.get('/', (_req, res) => {
   res.status(200).json({
     success: true,
-    service: 'WebFor59 payment backend',
+    service: 'digitalBizconnect.com payment backend',
   });
 });
 
@@ -77,7 +77,7 @@ app.post('/api/create-payment-intent', async (req, res) => {
     if (!isWebsiteCheckout) {
       return res.status(400).json({
         success: false,
-        message: 'Unsupported product type for WebFor59 checkout.',
+        message: 'Unsupported product type for digitalBizconnect.com checkout.',
       });
     }
 
@@ -126,5 +126,5 @@ app.post('/api/create-payment-intent', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`WebFor59 payment backend running on port ${PORT}`);
+  console.log(`digitalBizconnect.com payment backend running on port ${PORT}`);
 });

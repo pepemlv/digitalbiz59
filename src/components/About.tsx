@@ -45,7 +45,7 @@ export default function About() {
                 and no online reviews can kill a great business.
               </p>
               <p>
-                We started DigitalBizConnect to change that. We combine deep technical expertise in web
+                We started digitalBizconnect.com to change that. We combine deep technical expertise in web
                 development and automation with a genuine passion for customer service, creating a one-stop
                 digital partner for growing businesses.
               </p>

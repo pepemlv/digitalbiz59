@@ -1,6 +1,6 @@
-# WebFor59 Backend
+# digitalBizconnect.com Backend
 
-Dedicated Stripe payment backend for WebFor59 website-template checkout.
+Dedicated Stripe payment backend for digitalBizconnect.com website-template checkout.
 
 This service is separate from the PartySavingRental backend, so rental payments can keep working without changes.
 
@@ -16,7 +16,7 @@ Create `.env` from `.env.example`:
 
 ```env
 PORT=4000
-FRONTEND_ORIGINS=https://webfor59.com,https://www.webfor59.com
+FRONTEND_ORIGINS=https://digitalBizconnect.com,https://www.digitalBizconnect.com
 STRIPE_SECRET_KEY=sk_live_your_stripe_secret_key_here
 ```
 
@@ -32,14 +32,14 @@ Create a new Render Web Service connected to the GitHub repo.
 Environment variables:
 
 ```env
-FRONTEND_ORIGINS=https://webfor59.com,https://www.webfor59.com
+FRONTEND_ORIGINS=https://digitalBizconnect.com,https://www.digitalBizconnect.com
 STRIPE_SECRET_KEY=sk_live_your_stripe_secret_key_here
 ```
 
 After Render gives you a URL, set the frontend environment variable:
 
 ```env
-VITE_API_URL=https://your-webfor59-backend.onrender.com
+VITE_API_URL=https://your-digitalbizconnect-backend.onrender.com
 ```
 
 Then redeploy the frontend.
