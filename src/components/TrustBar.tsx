@@ -1,10 +1,10 @@
 import { BookOpen, CreditCard, Globe2, ReceiptText } from 'lucide-react';
 
 const trust = [
-  { icon: Globe2, label: 'Website from $500' },
-  { icon: CreditCard, label: 'Payments & invoices' },
-  { icon: BookOpen, label: 'Free records dashboard' },
-  { icon: ReceiptText, label: 'Bookkeeping & tax support' },
+  { icon: Globe2, label: 'Website only $59.99' },
+  { icon: CreditCard, label: 'Reserve & pay later' },
+  { icon: BookOpen, label: 'Dashboard access available' },
+  { icon: ReceiptText, label: '14-day money-back guarantee' },
 ];
 
 export default function TrustBar() {

@@ -2,29 +2,29 @@ import { useEffect } from 'react';
 import { ArrowRight, Play, CheckCircle, BadgeCheck, BookOpenCheck, Search } from 'lucide-react';
 
 const stats = [
-  { icon: BadgeCheck, value: 'Certified', label: 'QuickBooks ProAdvisor' },
-  { icon: BookOpenCheck, value: 'Monthly', label: 'Bookkeeping Support' },
-  { icon: Search, value: 'SEO', label: 'Google Visibility Setup' },
+  { icon: BadgeCheck, value: '$59.99', label: 'Website launch' },
+  { icon: BookOpenCheck, value: '24 hrs', label: 'Fast preview' },
+  { icon: Search, value: 'Google', label: 'Friendly setup' },
 ];
 
 const floatingCards = [
   {
     title: 'Order Received',
-    subtitle: 'Online payment recorded',
+    subtitle: 'Website request started',
     bg: 'bg-orange-600',
     shadow: 'shadow-orange-600/30',
     position: '-top-3 left-2 sm:-top-[18px] sm:-left-[22px]',
   },
   {
-    title: 'Tax Ready',
-    subtitle: 'Books are organized',
+    title: 'Launch Ready',
+    subtitle: 'Preview prepared',
     bg: 'bg-green-700',
     shadow: 'shadow-green-700/30',
     position: 'top-[42%] -right-1 sm:top-[45%] sm:-right-[22px]',
   },
   {
-    title: 'Customer Visited',
-    subtitle: 'New website activity',
+    title: 'Lead Captured',
+    subtitle: 'Quote request received',
     bg: 'bg-[#052E24] border border-white/10',
     shadow: 'shadow-green-950/30',
     position: '-bottom-3 left-5 sm:-bottom-[18px] sm:left-6',
@@ -46,6 +46,10 @@ export default function Hero() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const openLaunchCheckout = () => {
+    window.dispatchEvent(new CustomEvent('webfor59:open-checkout', { detail: { product: 'launch' } }));
+  };
+
   return (
     <section id="hero" className="hero-bg grid-pattern relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0 bg-[#041F19]/45 pointer-events-none" />
@@ -55,30 +59,29 @@ export default function Hero() {
           <div className="order-2 min-[900px]:order-1">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-4 py-2 mb-7">
               <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
-              <span className="text-sm text-white/75 font-medium">Business Websites • Google Visibility • Tax • Bookkeeping Support</span>
+              <span className="text-sm text-white/75 font-medium">WEBFOR59.COM - Websites for Small Businesses</span>
             </div>
 
             <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.4rem] text-white leading-[1.08] mb-6 tracking-tight drop-shadow-[0_3px_18px_rgba(0,0,0,0.55)]">
-              Focus on Running Your Business.{' '}
-              <span className="text-orange-400">We'll Handle the Rest.</span>
+              Professional Website + Google Visibility{' '}
+              <span className="text-orange-400">for $59.99.</span>
             </h1>
 
             <p className="text-[1.1rem] text-white leading-relaxed mb-6 max-w-lg drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
-              We help small businesses establish a strong online presence, maintain 
-              organized bookkeeping, accept payments online, and prepare for tax season 
-              with confidence.
+              Get your business online today with a clean, mobile-friendly website, contact form,
+              professional email setup, and Google-friendly structure.
               <br />
               <span className="inline-block mt-2 font-semibold text-orange-300">
-                $500 one-time payment includes full support.
+                Only $59.99 one time. No monthly fees. No contracts.
               </span>
             </p>
             <div className="flex flex-wrap gap-2 mb-7">
               {[
-                'Business Websites',
-                  'Google Visibility',
-                'Bookkeeping',
-                'Online Payment Solutions',
-                'Tax Preparation',
+                'Mobile-Friendly Website',
+                'Contact & Quote Form',
+                'Professional Email',
+                'Google-Friendly Design',
+                '14-Day Money-Back Guarantee',
               ].map((item) => (
                 <div key={item} className="flex items-center gap-2 rounded-full bg-[#041F19]/88 border border-white/20 px-3 py-2 text-sm font-semibold text-white shadow-lg shadow-black/20 backdrop-blur-sm">
                   <CheckCircle className="w-4 h-4 text-orange-500 flex-shrink-0" />
@@ -88,10 +91,10 @@ export default function Hero() {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
               <button
-                onClick={() => scrollTo('#pricing')}
+                onClick={openLaunchCheckout}
                 className="group flex items-center justify-center gap-2 px-7 py-4 bg-orange-600 hover:bg-orange-500 text-white font-semibold rounded-xl shadow-lg shadow-orange-600/25 hover:shadow-orange-500/35 hover:shadow-xl transition-all duration-300"
               >
-                View All Packages
+                Launch for $59.99
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
               <button
@@ -99,11 +102,9 @@ export default function Hero() {
                 className="group flex items-center justify-center gap-2 px-7 py-4 bg-white/10 hover:bg-white/16 backdrop-blur-sm border border-white/15 text-white font-semibold rounded-xl transition-all duration-300"
               >
                 <Play className="w-4 h-4 text-green-400" />
-                Book a Free Consultation
+                Reserve & Pay Later
               </button>
             </div>
-
-         
           </div>
 
           <div className="relative order-1 min-[900px]:order-2 max-w-xl w-full mx-auto min-[900px]:mx-0">
@@ -112,7 +113,7 @@ export default function Hero() {
                 <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-400/70" />
                 <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-400/70" />
                 <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-400/70" />
-                <span className="ml-1 sm:ml-2 text-[0.65rem] sm:text-xs text-white/45 font-medium">Business Activity</span>
+                <span className="ml-1 sm:ml-2 text-[0.65rem] sm:text-xs text-white/45 font-medium">Website Activity</span>
                 <div className="ml-auto flex items-center gap-1 sm:gap-1.5 bg-green-500/15 border border-green-500/20 rounded-full px-2 sm:px-2.5 py-0.5">
                   <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
                   <span className="text-[0.65rem] sm:text-xs text-green-400 font-medium">Live</span>
@@ -146,9 +147,9 @@ export default function Hero() {
 
               <div className="grid grid-cols-3 gap-1.5 sm:gap-3">
                 {[
-                  { label: 'Online Orders', value: 'Received', delta: 'Payments tracked', color: 'text-orange-500' },
-                  { label: 'Website Traffic', value: 'Customers', delta: 'Visited today', color: 'text-green-400' },
-                  { label: 'Tax Records', value: 'Ready', delta: 'Books organized', color: 'text-green-400' },
+                  { label: 'Website Price', value: '$59.99', delta: 'One time', color: 'text-orange-500' },
+                  { label: 'Domain From', value: '$9.99', delta: 'Per year', color: 'text-green-400' },
+                  { label: 'Launch Speed', value: '24 hrs', delta: 'Most websites', color: 'text-green-400' },
                 ].map((s) => (
                   <div key={s.label} className="bg-white/5 border border-white/8 rounded-lg sm:rounded-xl p-1.5 sm:p-3">
                     <p className="text-[0.56rem] sm:text-xs text-white/45 mb-0.5 sm:mb-1 leading-tight">{s.label}</p>

@@ -3,25 +3,23 @@ import { Phone, Mail, MapPin, Clock, Send, CheckCircle, Calendar, X } from 'luci
 import { saveContactMessage } from '../lib/firebase';
 
 const services = [
-  'Website Development',
-  'E-Commerce Store',
-  'Booking System',
+  '$59.99 Website Launch',
+  'Reserve & Pay Later',
+  'Custom Domain',
+  'Professional Email',
+  'Quote Request Form',
+  'Business Dashboard',
+  'Photo Gallery Updates',
   'Payment Integration',
-  'Bookkeeping',
-  'Tax Preparation',
-  'Customer Support Services',
-  'Business Automation',
-  'SEO & Google Optimization',
-  'Google Ads Management',
-  'CRM Setup',
-  'AI Chatbot',
+  'Website Redesign',
+  'Google-Friendly Setup',
 ];
 
 const contactInfo = [
-  { icon: Phone, label: 'Phone', value: '(704) 831-1314' },
-  { icon: Mail, label: 'Email', value: 'contact@digitalbizconnect.com' },
+  { icon: Phone, label: 'Phone', value: '(704) 281-0980' },
+  { icon: Mail, label: 'Email', value: 'contact@webfor59.com' },
   { icon: MapPin, label: 'Location', value: 'Serving businesses nationwide' },
-  { icon: Clock, label: 'Website & Dashboard Access', value: 'Ready in less than 48 hours' },
+  { icon: Clock, label: 'Website Launch', value: 'Most websites can launch within 24 hours' },
 ];
 
 const fieldClassName =
@@ -90,9 +88,9 @@ export default function Contact() {
         ...prev,
         company: inquiry.businessName || prev.company,
         requestType: inquiry.action === 'pay_receipt' ? 'pay_receipt' : 'more_info',
-        services: prev.services.includes('Website Development')
+        services: prev.services.includes('$59.99 Website Launch')
           ? prev.services
-          : [...prev.services, 'Website Development'],
+          : [...prev.services, '$59.99 Website Launch'],
         message: inquiry.message || prev.message,
       }));
     } catch {
@@ -166,11 +164,11 @@ export default function Contact() {
             Get Started
           </span>
           <h2 className="font-display font-bold text-4xl lg:text-5xl text-white mb-4">
-            Ready to Try It Free for 30 Days?
+            Ready To Get Online?
           </h2>
           <p className="text-lg text-white/70 max-w-2xl mx-auto">
-            Need more information? Feel free to contact us. Get your professional website and access to your
-            business dashboard in less than 48 hours.
+            Launch your website today for only $59.99, reserve and pay later, or ask us about
+            a custom domain starting at $9.99 per year.
           </p>
         </div>
 
@@ -259,8 +257,7 @@ export default function Contact() {
                 </div>
                 <h3 className="font-display font-bold text-2xl text-white mb-2">Message Sent!</h3>
                 <p className="text-white/65 mb-7 max-w-sm">
-                  We'll review your information and follow up with the next steps for your website and
-                  business dashboard.
+                  We'll review your information and follow up with the next steps for your WebFor59 website.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
@@ -278,8 +275,8 @@ export default function Contact() {
                   </label>
                   <div className="grid sm:grid-cols-3 gap-2">
                     {[
-                      { val: 'quote', label: 'Get a Quote' },
-                      { val: 'pay_receipt', label: 'Pay $500 Get My Website Now' },
+                      { val: 'quote', label: 'Launch $59.99 Website' },
+                      { val: 'reserve', label: 'Reserve & Pay Later' },
                       { val: 'more_info', label: 'More Info' },
                     ].map(({ val, label }) => (
                       <button
@@ -348,7 +345,7 @@ export default function Contact() {
                       type="tel"
                       value={form.phone}
                       onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
-                      placeholder="(704) 831-1314"
+                      placeholder="(704) 281-0980"
                       className={fieldClassName}
                     />
                   </div>
@@ -397,7 +394,7 @@ export default function Contact() {
                     rows={3}
                     value={form.message}
                     onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
-                    placeholder="What are your biggest challenges? What results are you hoping for?"
+                    placeholder="Send your business name, services, phone number, email, and anything you want on the website."
                     className={`${fieldClassName} resize-none`}
                   />
                 </div>
@@ -426,7 +423,7 @@ export default function Contact() {
                 )}
 
                 <p className="text-xs text-center text-white/45">
-                  Free consultation, no credit card or commitment required
+                  Launch Today - Reserve & Pay Later - 14-Day Money-Back Guarantee
                 </p>
               </form>
             )}

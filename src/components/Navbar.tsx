@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Platform', href: '#business-platform' },
+  { label: 'Included', href: '#business-platform' },
   { label: 'Industries', href: '#industries' },
   { label: 'Pricing', href: '#pricing' },
   { label: 'Contact', href: '#contact' },
@@ -46,9 +46,9 @@ export default function Navbar() {
             className="flex items-center gap-2.5 group"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           >
-            <img src="/logo.png" alt="DigitalBizConnect" className="w-12 h-12 object-contain group-hover:scale-105 transition-transform" />
+            <img src="/logo.png" alt="WebFor59" className="w-12 h-12 object-contain group-hover:scale-105 transition-transform" />
             <span className="font-display font-bold text-white text-lg tracking-tight">
-              DigitalBiz<span className="text-orange-300">Connect</span>
+              WebFor<span className="text-orange-300">59</span>
             </span>
           </a>
 
@@ -77,7 +77,7 @@ export default function Navbar() {
               onClick={() => handleNav('#contact')}
               className="px-5 py-2.5 text-sm font-semibold bg-orange-600 hover:bg-orange-500 text-white rounded-xl transition-all duration-200 shadow-md shadow-orange-600/25 hover:shadow-orange-500/35 hover:shadow-lg"
             >
-              Free Consultation
+              Launch for $59.99
             </button>
           </div>
 
@@ -117,7 +117,7 @@ export default function Navbar() {
             onClick={() => handleNav('#contact')}
             className="mt-2 px-5 py-3 text-sm font-semibold bg-orange-600 text-white rounded-xl"
           >
-            Free Consultation
+            Launch for $59.99
           </button>
         </div>
       </div>

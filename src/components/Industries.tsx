@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { HardHat, ShieldCheck, Utensils, CalendarDays, Sparkles, Home, Heart, Wrench, MapPin, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
+import type { MouseEvent } from 'react';
+import { HardHat, ShieldCheck, Utensils, CalendarDays, Sparkles, Home, Heart, Wrench, MapPin, ArrowRight, ChevronDown, ChevronUp, Copy, Check } from 'lucide-react';
 
 const industries = [
   {
@@ -85,10 +86,10 @@ const industries = [
   {
     id: 'commercial-cleaning',
     icon: Sparkles,
-    name: 'Charlotte Cleaning Service',
-    desc: 'Cleaning website template for Charlotte Cleaning Service with domain charlottecleanservices.com.',
-    keywords: ['B2B Leads', 'Walkthroughs', 'Service Plans', 'Contracts'],
-    img: 'https://images.pexels.com/photos/6195121/pexels-photo-6195121.jpeg?w=500&h=320&fit=crop',
+    name: 'Títí’s Cleaning Services',
+    desc: 'House cleaning website template for Títí’s Cleaning Services with quick booking and callbacks.',
+    keywords: ['House Cleaning', 'Friendly Service', 'Callbacks', 'Booking'],
+    img: 'https://images.pexels.com/photos/5217897/pexels-photo-5217897.jpeg?w=500&h=320&fit=crop',
   },
   {
     id: 'carpet-cleaning',
@@ -117,10 +118,10 @@ const industries = [
   {
     id: 'move-out-cleaning',
     icon: Sparkles,
-    name: 'B & Z Cleaning Services LLC',
-    desc: 'Cleaning service website template for homes, apartments, and move-out cleaning requests.',
-    keywords: ['Move-Out', 'Landlords', 'Rush Booking', 'Checklists'],
-    img: 'https://images.pexels.com/photos/4107284/pexels-photo-4107284.jpeg?w=500&h=320&fit=crop',
+    name: 'MB.SPOTLESS CLEANING SERVICES',
+    desc: 'Spotless cleaning website template for recurring service requests and customer callbacks.',
+    keywords: ['Contracts', 'Multi-Location', 'Supplies', 'Compliance'],
+    img: 'https://images.pexels.com/photos/4099471/pexels-photo-4099471.jpeg?w=500&h=320&fit=crop',
   },
   {
     id: 'post-construction-cleaning',
@@ -139,20 +140,68 @@ const industries = [
     img: 'https://images.pexels.com/photos/4107278/pexels-photo-4107278.jpeg?w=500&h=320&fit=crop',
   },
   {
-    id: 'janitorial-services',
+    id: 'multi-clean-services',
     icon: Sparkles,
-    name: 'MB.SPOTLESS CLEANING SERVICES',
-    desc: 'Spotless cleaning website template for recurring service requests and customer callbacks.',
-    keywords: ['Contracts', 'Multi-Location', 'Supplies', 'Compliance'],
-    img: 'https://images.pexels.com/photos/4099471/pexels-photo-4099471.jpeg?w=500&h=320&fit=crop',
+    name: 'Multi Clean Services LLC',
+    desc: 'Cleaning service website template for Multi Clean Services with booking, callbacks, and service requests.',
+    keywords: ['Cleaning Service', 'Booking', 'Callbacks', 'Charlotte'],
+    img: 'https://images.pexels.com/photos/4107278/pexels-photo-4107278.jpeg?w=500&h=320&fit=crop',
   },
   {
-    id: 'green-cleaning',
+    id: 'carol-pereira-cleaning',
     icon: Sparkles,
-    name: "Titi's Cleaning Services",
-    desc: 'Friendly house cleaning website template for quotes, callbacks, and local Charlotte service.',
-    keywords: ['Eco-Friendly', 'Pet-Safe', 'Products', 'Subscriptions'],
-    img: 'https://images.pexels.com/photos/5217897/pexels-photo-5217897.jpeg?w=500&h=320&fit=crop',
+    name: 'Carol Pereira Cleaning',
+    desc: 'Reliable Charlotte house cleaning template for homes, apartments, and Airbnb properties.',
+    keywords: ['House Cleaning', 'Airbnb', 'Deep Cleaning', 'Flexible'],
+    img: 'https://images.pexels.com/photos/4107283/pexels-photo-4107283.jpeg?w=500&h=320&fit=crop',
+  },
+  {
+    id: 'bright-nest-cleaning',
+    icon: Sparkles,
+    name: 'Bright Nest Cleaning',
+    desc: 'Detailed house cleaning template for Charlotte, Matthews, Huntersville, Concord, and Kannapolis.',
+    keywords: ['Deep Cleaning', 'Move-Out', 'Post-Construction', 'Text'],
+    img: 'https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?w=500&h=320&fit=crop',
+  },
+  {
+    id: 'charlotte-personal-assistant-service',
+    icon: Sparkles,
+    name: 'Charlotte Personal Assistant Service',
+    desc: 'Cleaning, organizing, janitorial, laundry, and in-home assistance template starting at $80.',
+    keywords: ['Organizing', 'Janitorial', 'Laundry', 'Insured'],
+    img: 'https://images.pexels.com/photos/4108713/pexels-photo-4108713.jpeg?w=500&h=320&fit=crop',
+  },
+  {
+    id: 'erika-house-clean',
+    icon: Sparkles,
+    name: 'Erika House Clean',
+    desc: 'Licensed and insured cleaning template with free estimates for homes, offices, and carpets.',
+    keywords: ['Free Estimates', 'Carpet', 'Commercial', 'Move-Out'],
+    img: 'https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg?w=500&h=320&fit=crop',
+  },
+  {
+    id: 'ebenezer-cleaning',
+    icon: Sparkles,
+    name: 'EBENEZER CLEANING',
+    desc: 'House and apartment cleaning template for regular, deep, move-out, and post-construction service.',
+    keywords: ['Apartment', 'Deep Clean', 'Move-Out', 'Text'],
+    img: 'https://images.pexels.com/photos/4108715/pexels-photo-4108715.jpeg?w=500&h=320&fit=crop',
+  },
+  {
+    id: 'dc-cleaning-service',
+    icon: Sparkles,
+    name: 'DC CLEANING SERVICE',
+    desc: 'Professional local cleaning template for residential, deep, one-time, and recurring service.',
+    keywords: ['Residential', 'Free Quote', 'Recurring', 'Local'],
+    img: 'https://images.pexels.com/photos/4099468/pexels-photo-4099468.jpeg?w=500&h=320&fit=crop',
+  },
+  {
+    id: 'neatco-cleaning',
+    icon: Sparkles,
+    name: 'Neatco Cleaning',
+    desc: 'Fort Mill cleaning template for reliable, detail-oriented home cleaning and customer requests.',
+    keywords: ['Fort Mill', 'Home Cleaning', 'Email', 'Recurring'],
+    img: 'https://images.pexels.com/photos/6195121/pexels-photo-6195121.jpeg?w=500&h=320&fit=crop',
   },
 ];
 
@@ -162,7 +211,23 @@ interface Props {
 
 export default function Industries({ onOpenDemo }: Props) {
   const [showMore, setShowMore] = useState(false);
+  const [copiedId, setCopiedId] = useState('');
   const visibleIndustries = showMore ? industries : industries.slice(0, 9);
+
+  const getTemplateLink = (id: string) => `${window.location.origin}/site/${id}`;
+
+  const copyTemplateLink = async (event: MouseEvent, id: string) => {
+    event.stopPropagation();
+    const link = getTemplateLink(id);
+
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopiedId(id);
+      window.setTimeout(() => setCopiedId(''), 1800);
+    } catch {
+      window.prompt('Copy this template link:', link);
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -238,6 +303,15 @@ export default function Industries({ onOpenDemo }: Props) {
                   <span>See live demo</span>
                   <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                 </div>
+                <button
+                  type="button"
+                  onClick={(event) => copyTemplateLink(event, industry.id)}
+                  className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs font-bold text-white/75 transition hover:bg-white/10 hover:text-white"
+                  aria-label={`Copy ${industry.name} template link`}
+                >
+                  {copiedId === industry.id ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                  {copiedId === industry.id ? 'Copied' : 'Copy link'}
+                </button>
               </div>
             </div>
           ))}

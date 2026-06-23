@@ -22,14 +22,16 @@ export default function DemoCTAFooter({ config, onDemoInquiry }: Props) {
           style={{ backgroundColor: `${config.accentHex}20`, border: `1px solid ${config.accentHex}40`, color: config.accentHex }}
         >
           <Zap className="w-3.5 h-3.5" />
-          Powered by DigitalBizConnect
+          Powered by WebFor59
         </div>
 
         <h2 className="font-display font-bold text-3xl lg:text-4xl text-white mb-4">
           We Built This Website Demo for Your Company
         </h2>
         <p className="text-slate-400 mb-8 text-lg">
-          After checking Google, we noticed your company does not have a professional website yet. If you like this demo, we can provide the domain and website with your own custom details added. Pay $500 to get your receipt, and your website will be online within 24 hours.
+          After checking Google, we noticed your company does not have a professional website yet.
+          If you like this demo, WebFor59 can customize it with your business details and help
+          launch your website for only $59.99. Custom domains start at $9.99 per year.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -38,7 +40,7 @@ export default function DemoCTAFooter({ config, onDemoInquiry }: Props) {
             className="group flex items-center justify-center gap-2 px-8 py-4 text-white font-semibold rounded-xl shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl"
             style={{ backgroundColor: config.accentHex }}
           >
-            Pay $500 and Get Receipt
+            Launch for $59.99
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
           <button
@@ -50,7 +52,7 @@ export default function DemoCTAFooter({ config, onDemoInquiry }: Props) {
         </div>
 
         <p className="text-slate-500 text-sm mt-5">
-          Custom website • Domain included • Online within 24 hours
+          Launch today - Reserve and pay later - 14-day money-back guarantee
         </p>
       </div>
     </section>

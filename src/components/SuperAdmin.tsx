@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Lock, LogOut, Save, Settings } from 'lucide-react';
+import { Check, Copy, ExternalLink, Lock, LogOut, Save, Settings } from 'lucide-react';
 import { industryConfigs } from './demos/industryConfigs';
 import {
   defaultTemplatePrice,
@@ -36,6 +36,21 @@ export default function SuperAdmin() {
   const [isLoading, setIsLoading] = useState(true);
   const [payments, setPayments] = useState<WebsitePayment[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [copiedId, setCopiedId] = useState('');
+
+  const getTemplateLink = (templateId: string) => `${window.location.origin}/site/${templateId}`;
+
+  const copyTemplateLink = async (templateId: string) => {
+    const link = getTemplateLink(templateId);
+
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopiedId(templateId);
+      window.setTimeout(() => setCopiedId(''), 1800);
+    } catch {
+      window.prompt('Copy this template link:', link);
+    }
+  };
 
   useEffect(() => {
     if (!signedIn) return undefined;
@@ -281,6 +296,34 @@ export default function SuperAdmin() {
                 <option value="available">Available</option>
                 <option value="unavailable">Not Available</option>
               </select>
+
+              <label className="mt-4 block text-xs font-semibold uppercase tracking-wider text-white/45 mb-2">
+                Client Template Link
+              </label>
+              <div className="flex gap-2">
+                <input
+                  readOnly
+                  value={getTemplateLink(template.id)}
+                  className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-xs text-white/75 outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => copyTemplateLink(template.id)}
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-white/10 px-3 py-2 text-xs font-bold text-white hover:bg-white/15"
+                >
+                  {copiedId === template.id ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                  {copiedId === template.id ? 'Copied' : 'Copy'}
+                </button>
+                <a
+                  href={`/site/${template.id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-xl bg-white/10 px-3 py-2 text-white hover:bg-white/15"
+                  aria-label={`Open ${template.businessName} template`}
+                >
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              </div>
             </div>
           ))}
         </div>

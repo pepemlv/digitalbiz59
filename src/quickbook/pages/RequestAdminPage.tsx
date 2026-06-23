@@ -120,7 +120,7 @@ export default function RequestAdminPage() {
         <form onSubmit={login} className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 space-y-4">
           <div className="text-center mb-5">
             <ShieldCheck className="w-12 h-12 text-green-700 mx-auto mb-3" />
-            <h1 className="text-2xl font-bold text-gray-900">DigitalBizConnect Admin</h1>
+            <h1 className="text-2xl font-bold text-gray-900">WebFor59 Admin</h1>
             <p className="text-sm text-gray-500 mt-1">Sign in to review contact and callback requests.</p>
           </div>
           <label className="block">
@@ -147,7 +147,7 @@ export default function RequestAdminPage() {
       <header className="bg-green-950 text-white px-5 py-4">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-orange-300">DigitalBizConnect</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-orange-300">WebFor59</p>
             <h1 className="text-xl font-bold">Request Dashboard</h1>
           </div>
           <div className="flex items-center gap-4">

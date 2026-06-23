@@ -118,7 +118,7 @@ function WebsiteCheckoutForm({
   price: number;
   promoPrice: number;
   checkoutMode: CheckoutMode;
-  onPaid: (paymentIntentId: string) => Promise<void>;
+  onPaid: (paymentIntentId: string) => void | Promise<void>;
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -424,8 +424,57 @@ function CheckoutModal({
   );
 }
 
+function BookingModal({ config, onClose }: { config: IndustryConfig; onClose: () => void }) {
+  const serviceOptions = config.quoteOptions?.[1]?.options || ['Standard Clean', 'Deep Clean', 'Move-In/Out'];
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    window.alert('This is a template website. Pay for the website to have the company online.');
+    onClose();
+  };
+
+  return (
+    <div className="fixed inset-0 z-[100] bg-slate-950/70 backdrop-blur-sm px-4 py-6 overflow-y-auto">
+      <div className="min-h-full flex items-center justify-center">
+        <div className="w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-2xl">
+          <div className="flex items-center justify-between gap-4 border-b border-slate-100 px-6 py-4">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider" style={{ color: config.accentHex }}>Book Service</p>
+              <h2 className="font-display text-2xl font-bold text-slate-950">{config.businessName}</h2>
+            </div>
+            <button onClick={onClose} className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200">
+              <X className="h-5 w-5 text-slate-600" />
+            </button>
+          </div>
+
+          <form className="space-y-4 p-6" onSubmit={handleSubmit}>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <input required placeholder="Your name" className="rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-[#781AAB]" />
+              <input required type="tel" placeholder="Phone number" className="rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-[#781AAB]" />
+            </div>
+            <input required type="email" placeholder="Email address" className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-[#781AAB]" />
+            <div className="grid sm:grid-cols-2 gap-4">
+              <select required className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-[#781AAB]">
+                <option value="">Select service</option>
+                {serviceOptions.map((option) => <option key={option}>{option}</option>)}
+              </select>
+              <input required type="date" className="rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-[#781AAB]" />
+            </div>
+            <input placeholder="Service address" defaultValue={config.address.includes('Charlotte, NC -') ? '' : config.address} className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-[#781AAB]" />
+            <textarea rows={4} placeholder="Tell us what needs cleaning, preferred time, pets, or special instructions" className="w-full resize-none rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-[#781AAB]" />
+            <button className="w-full rounded-xl px-5 py-4 font-bold text-white" style={{ backgroundColor: config.accentHex }}>
+              Save Booking Request
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function CleaningTemplatePage({ config, onBack }: Props) {
   const [checkoutMode, setCheckoutMode] = useState<CheckoutMode | null>(null);
+  const [bookingOpen, setBookingOpen] = useState(false);
   const [quoteSubmitted, setQuoteSubmitted] = useState(false);
   const [callbackSubmitted, setCallbackSubmitted] = useState(false);
   const [detailedCallbackSubmitted, setDetailedCallbackSubmitted] = useState(false);
@@ -465,7 +514,7 @@ export default function CleaningTemplatePage({ config, onBack }: Props) {
             </span>
             {config.businessName}
           </div>
-          <div className="flex flex-col gap-2 sm:flex-row">
+          <div className="hidden gap-2 sm:flex sm:flex-row">
             <button
               onClick={() => openCheckout('full')}
               disabled={!templateAvailable}
@@ -485,9 +534,9 @@ export default function CleaningTemplatePage({ config, onBack }: Props) {
         </div>
       </header>
 
-      <section className="relative min-h-screen sm:min-h-[80vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[calc(100svh-4rem)] sm:min-h-[80vh] flex items-center overflow-hidden">
         <video
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover object-[58%_center] sm:object-center"
           autoPlay
           muted
           loop
@@ -500,20 +549,39 @@ export default function CleaningTemplatePage({ config, onBack }: Props) {
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950/45 via-slate-950/18 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-14 sm:py-20 w-full">
           <div className="max-w-[22rem] sm:max-w-3xl">
-            <div className="inline-flex flex-col gap-1.5 text-white">
-              <HeroCompanyName name={config.businessName} accentColor="#020617" />
+            <div className="template-hero-company inline-flex flex-col gap-1.5 text-white">
+              <HeroCompanyName name={config.businessName} accentColor={config.accentHex} />
               {config.websiteDomain && <p className="text-xs sm:text-sm font-semibold text-white/85">{config.websiteDomain}</p>}
             </div>
-            <h1 className="mt-5 sm:mt-6 font-display text-3xl sm:text-6xl lg:text-7xl font-extrabold leading-tight text-white">
-              {config.tagline}
-            </h1>
-            <p className="mt-4 sm:mt-5 max-w-2xl text-sm sm:text-lg leading-6 sm:leading-8 text-white/85">
-              {config.subTagline}
-            </p>
-            <span className="mt-6 sm:mt-8 inline-flex items-center gap-2 rounded-full bg-white/12 px-3 py-2 sm:px-4 text-xs sm:text-sm font-bold text-white ring-1 ring-white/20 backdrop-blur">
-              <ShieldCheck className="h-4 w-4" style={accentStyle} />
-              Licensed, bonded, insured cleaning professionals
-            </span>
+            <div className="template-hero-copy">
+              <h1 className="mt-5 sm:mt-6 font-display text-3xl sm:text-6xl lg:text-7xl font-extrabold leading-tight text-white">
+                {config.tagline}
+              </h1>
+              <p className="mt-4 sm:mt-5 max-w-2xl text-sm sm:text-lg leading-6 sm:leading-8 text-white/85">
+                {config.subTagline}
+              </p>
+              <span className="mt-6 sm:mt-8 inline-flex items-center gap-2 rounded-full bg-white/12 px-3 py-2 sm:px-4 text-xs sm:text-sm font-bold text-white ring-1 ring-white/20 backdrop-blur">
+                <ShieldCheck className="h-4 w-4" style={accentStyle} />
+                Licensed, bonded, insured cleaning professionals
+              </span>
+              <div className="mt-6 flex flex-wrap items-center gap-2 sm:gap-3">
+                <a
+                  href={`tel:${config.phone}`}
+                  className="inline-flex w-fit items-center justify-center gap-1.5 rounded-xl px-2.5 py-2 text-xs font-bold text-white shadow-lg sm:gap-2 sm:px-5 sm:py-3 sm:text-sm"
+                  style={accentBgStyle}
+                >
+                  <Phone className="h-4 w-4" />
+                  {config.phone}
+                </a>
+                <button
+                  onClick={() => setBookingOpen(true)}
+                  className="inline-flex w-fit items-center justify-center gap-1.5 rounded-xl bg-white px-2.5 py-2 text-xs font-bold text-slate-950 shadow-lg hover:bg-slate-100 sm:gap-2 sm:px-5 sm:py-3 sm:text-sm"
+                >
+                  <CalendarClock className="h-4 w-4" />
+                  Book Service
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -994,6 +1062,7 @@ export default function CleaningTemplatePage({ config, onBack }: Props) {
           onClose={() => setCheckoutMode(null)}
         />
       )}
+      {bookingOpen && <BookingModal config={config} onClose={() => setBookingOpen(false)} />}
     </div>
   );
 }

@@ -14,7 +14,7 @@ import { firestore } from './firebase';
 const collectionName = 'templatePrices';
 const paymentsCollectionName = 'websitePayments';
 const cacheKey = 'dbc-template-prices-cache';
-export const defaultTemplatePrice = 150;
+export const defaultTemplatePrice = 59.99;
 
 export type TemplatePrices = Record<string, number>;
 export type TemplateAvailability = Record<string, boolean>;
@@ -204,6 +204,7 @@ export function formatTemplatePrice(price: number) {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    maximumFractionDigits: 0,
+    minimumFractionDigits: Number.isInteger(price) ? 0 : 2,
+    maximumFractionDigits: 2,
   }).format(price);
 }
